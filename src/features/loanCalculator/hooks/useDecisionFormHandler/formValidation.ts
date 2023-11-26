@@ -10,6 +10,6 @@ export const decisionFormDefaults: {
   [key: string]: string | undefined | number;
 } = {
   id: '',
-  loanAmount: 0,
-  period: 0,
+  loanAmount: '',
+  period: '',
 };

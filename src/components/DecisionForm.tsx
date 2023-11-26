@@ -1,12 +1,22 @@
+import { DecisionFormData } from '@/features/loanCalculator/@types';
 import { useDecisionFormHandler } from '@/features/loanCalculator/hooks/useDecisionFormHandler/useDecisionFormHandler';
 import classNames from 'classnames';
 
-export const DecisionForm = () => {
+export const DecisionForm = ({
+  onSubmit,
+  onDataReady,
+}: {
+  onSubmit: React.Dispatch<React.SetStateAction<DecisionFormData>>;
+  onDataReady: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { handleSubmit, register, errors } = useDecisionFormHandler();
   return (
     <form
       className="lg:col-span-2"
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        onDataReady(true);
+      })}
     >
       <div className="">
         <h2 className="text-sm font-medium">Loan Data</h2>
@@ -38,37 +48,37 @@ export const DecisionForm = () => {
                   </span>
                 )}
               </div>
-              <div className="col-span-2">
+              <div className="relative col-span-2">
                 <label className="text-xs font-semibold">Loan Amount</label>
                 <input
                   className={classNames({
                     'flex items-center focus:outline-none h-10 border mt-1 rounded px-4 w-full text-sm':
                       true,
-                    ['border-rose-500']: !!errors.id,
+                    ['border-rose-500']: !!errors.loanAmount,
                   })}
                   type="text"
                   placeholder="3000"
                   {...register('loanAmount')}
                 />
-                {!!errors.id && (
+                {!!errors.loanAmount && (
                   <span className="absolute text-xs text-red-500 right-0 top-2">
                     Please enter valid loan amount
                   </span>
                 )}
               </div>
-              <div className="col-span-2">
+              <div className="relative col-span-2">
                 <label className="text-xs font-semibold">Loan Duration</label>
                 <input
                   className={classNames({
                     'flex items-center focus:outline-none h-10 border mt-1 rounded px-4 w-full text-sm':
                       true,
-                    ['border-rose-500']: !!errors.id,
+                    ['border-rose-500']: !!errors.period,
                   })}
                   type="text"
                   placeholder="24"
                   {...register('period')}
                 />
-                {!!errors.id && (
+                {!!errors.period && (
                   <span className="absolute text-xs text-red-500 right-0 top-2">
                     Please enter valid duration
                   </span>
