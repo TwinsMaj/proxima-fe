@@ -23,14 +23,12 @@ export const useDecisionSystem = (
           },
           body: JSON.stringify(params),
         });
-        console.log(response.status);
-        // if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) throw new Error(response.statusText);
         const json = await response.json();
         setIsPending(false);
         setData(json);
         setError('');
       } catch (error) {
-        // console.log(error);
         setError(`${error} Could not Fetch Data `);
         setIsPending(false);
       }
