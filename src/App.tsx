@@ -1,7 +1,9 @@
+import { LoanCalculator } from './features/loanCalculator/LoanCalculator';
+
 export const App = () => {
   return (
     <>
-      <h3>Proxima</h3>
+      <LoanCalculator />
     </>
   );
 };
